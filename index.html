@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Will you go on a date with me? 💖</title>
+
+<!-- Cute, characterful fonts (load over the internet when the page is hosted) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Our styles -->
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="bg-hearts" id="bgHearts" aria-hidden="true"></div>
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<main class="app">
+  <!-- progress -->
+  <div class="progress" id="progress">
+    <div class="track"></div>
+    <div class="fill" id="progressFill"></div>
+    <div class="step" data-step="0"><span class="heart">💖</span><span class="label">Date?</span></div>
+    <div class="step" data-step="1"><span class="heart">💖</span><span class="label">When?</span></div>
+    <div class="step" data-step="2"><span class="heart">💖</span><span class="label">Food</span></div>
+    <div class="step" data-step="3"><span class="heart">💖</span><span class="label">It's a date!</span></div>
+  </div>
+
+  <!-- SCREEN 0 : the question -->
+  <section class="screen active" data-screen="0">
+    <div class="q-emoji">🥺💕</div>
+    <h1 class="q-title">Will you go on a date with me?</h1>
+    <div class="btn-row" id="answerRow">
+      <button class="btn btn-yes" id="yesBtn">Yes 💖</button>
+      <button class="btn btn-no" id="noBtn">No</button>
+    </div>
+    <div class="reveal" id="yesReveal" hidden>
+      <div class="reveal-big">Wait! You actually said Yes</div>
+      <div class="reveal-small">I was expecting a No 😭</div>
+    </div>
+    <div class="nav-row">
+      <button class="btn next-btn" id="next0" disabled>Next →</button>
+    </div>
+  </section>
+
+  <!-- SCREEN 1 : when -->
+  <section class="screen" data-screen="1">
+    <h2 class="q-title">So… when are you free?</h2>
+    <div class="q-sub">Pick the moment 💫</div>
+
+    <div class="field" style="margin-top:18px;">
+      <div class="field-label">📅 Pick a Day</div>
+      <button class="day-picker" id="dayBtn">
+        <span class="cal-icon">📅</span>
+        <span id="dayText">Tap to open the calendar</span>
+      </button>
+    </div>
+
+    <div class="field">
+      <div class="field-label">🕗 What time?</div>
+      <div class="opt-grid time-grid" id="timeGrid">
+        <button class="opt" data-time="6 PM"><span>6 PM</span><small>Golden-hour glow 🌅</small></button>
+        <button class="opt" data-time="7 PM"><span>7 PM</span><small>Prime-time for two 🍷</small></button>
+        <button class="opt" data-time="8 PM"><span>8 PM</span><small>Fashionably perfect ✨</small></button>
+        <button class="opt" data-time="9 PM"><span>9 PM</span><small>Candlelight o'clock 🕯️</small></button>
+        <button class="opt" data-time="10 PM"><span>10 PM</span><small>Night owls &amp; deep talks 🦉</small></button>
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn back-btn">←</button>
+      <button class="btn next-btn" id="next1" disabled>Next →</button>
+    </div>
+  </section>
+
+  <!-- SCREEN 2 : food -->
+  <section class="screen" data-screen="2">
+    <h2 class="q-title">What would you like to have?</h2>
+    <div class="q-sub">My treat, obviously 😌</div>
+
+    <div class="opt-grid cuisine-grid" id="cuisineGrid" style="margin-top:20px;">
+      <button class="opt" data-cuisine="Italian"><span class="art">🍝</span>Italian</button>
+      <button class="opt" data-cuisine="Chinese"><span class="art">🥡</span>Chinese</button>
+      <button class="opt" data-cuisine="Indian"><span class="art">🍛</span>Indian</button>
+      <button class="opt" data-cuisine="Mexican"><span class="art">🌮</span>Mexican</button>
+      <button class="opt" data-cuisine="Thai"><span class="art">🍜</span>Thai</button>
+      <button class="opt" data-cuisine="American Fast Food"><span class="art">🍔</span>American Fast Food</button>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn back-btn">←</button>
+      <button class="btn next-btn" id="next2" disabled>Next →</button>
+    </div>
+  </section>
+
+  <!-- SCREEN 3 : final -->
+  <section class="screen" data-screen="3">
+    <div class="big-date">It's a Date!!</div>
+    <div class="hand-small">I'll be the one outside trying to look chill 😎</div>
+
+    <div class="summary">
+      <div class="summary-row"><span class="k">When</span><span class="v" id="sumWhen">—</span></div>
+      <div class="summary-row"><span class="k">Food</span><span class="v" id="sumFood">—</span></div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn back-btn">←</button>
+      <button class="btn next-btn" id="notedBtn">Noted 💌</button>
+      <button class="btn next-btn" id="exitBtn" disabled>Exit</button>
+    </div>
+  </section>
+</main>
+
+<!-- calendar popup -->
+<div class="overlay" id="calOverlay">
+  <div class="cal-card" id="calCard">
+    <div class="cal-head">
+      <button id="calPrev" aria-label="Previous month">‹</button>
+      <div class="cal-title" id="calTitle">Month</div>
+      <button id="calNext" aria-label="Next month">›</button>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+    <button class="cal-close" id="calClose">close</button>
+  </div>
+</div>
+
+<!-- exit screen -->
+<div class="overlay" id="exitOverlay">
+  <div class="exit-card">
+    <div class="big-date">See you there! 💕</div>
+    <div class="hand-small">Don't keep me waiting 😉</div>
+    <button class="cal-close" id="closeTabBtn" style="color:#ffe0ee; margin-top:18px;">you can close this tab now</button>
+  </div>
+</div>
+
+<!-- Our script -->
+<script src="js/script.js"></script>
+</body>
+</html>
