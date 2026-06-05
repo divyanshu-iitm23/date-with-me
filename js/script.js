@@ -159,7 +159,7 @@
   function enable(btn){ btn.disabled = false; btn.classList.add('ready'); }
 
   /* ---------------- screen 0 : Yes / No ---------------- */
-  var taunts = ['No','Nope!','Try again 😜','Catch me!','Not today!','Hehe~','Nuh-uh 💨','Keep trying!'];
+  var taunts = ['No','No!','No','No','No','No','No','No'];
   var tauntIdx = 0;
 
   function moveNo(){
